@@ -1,0 +1,19 @@
+.container {
+  max-width: 100%;
+}
+
+.ant-card {
+  width: 30%!important
+}
+.ant-card-head-title {
+  color: whitesmoke;
+}
+.form-error {
+  color:whitesmoke;
+}
+.ant-btn {
+  margin: 5% 5% 0 0;
+}
+.btn-register {
+  background-color: orange!important;
+}
