@@ -24,7 +24,7 @@ This simple CRUD category, using some tech stack like :
 
 ## Deployment
 This project successfully deploy at <br>
-[Simple Form CRUD](https://jolly-strudel-7875db.netlify.app/)
+[Simple CRUD](https://timely-genie-57fd81.netlify.app)
 
 ## Local Deployment
 
