@@ -63,7 +63,6 @@ const Table = ({list, handleDel, handleUpdate}: CategoryWrapper) => {
     },
   ];
   
-  console.log(list)
   
   if(list.length > 0) {
     return (
