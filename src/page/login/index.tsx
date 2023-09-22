@@ -31,7 +31,7 @@ const Login = () => {
   const { setLoading, setToken } = useGlobalContext()
 
   const handleSubmit = async (values: LoginType) => {
-    console.log(values)
+    // console.log(values)
     try {
       const response = await axios.post(`${urls}/user/login`, values, { 
         headers: {

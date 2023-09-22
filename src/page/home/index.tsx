@@ -40,7 +40,7 @@ const Home = () => {
         },
       });
       if(response.status == 200) {
-        console.log(response.data.data)
+        // console.log(response.data.data)
         setList(response.data.data);
         setLoad(false)
       }
@@ -98,7 +98,7 @@ const Home = () => {
       } else {
         console.log(response.status)
       }
-      console.log(response)
+      // console.log(response)
     } catch (error) {
       if (error instanceof Error) {
         setLoad(false)
@@ -111,7 +111,7 @@ const Home = () => {
   }
 
   const handleUpdate = (id: string) => {
-    console.log(id)
+    // console.log(id)
     navigate(`/category/edit/${id}`)
   }
 

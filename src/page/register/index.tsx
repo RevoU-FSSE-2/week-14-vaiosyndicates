@@ -47,7 +47,7 @@ const Register = () => {
           Accept: 'application/json',
         },
       });
-      console.log(response.status)
+      // console.log(response.status)
       if(response.status == 201) {
         setLoading(false)
         success()

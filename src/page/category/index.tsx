@@ -32,7 +32,7 @@ const Category = () => {
 
   const handleSubmit = async (values: Category) => {
     const urls = lib.url
-    console.log(values)
+    // console.log(values)
   
     try {
       const response = await axios.post(`${urls}/category/create`, values, { 
@@ -43,7 +43,7 @@ const Category = () => {
         },
       });
   
-      console.log(response)
+      // console.log(response)
       if(response.status == 201) {
         navigate('/')
       }
