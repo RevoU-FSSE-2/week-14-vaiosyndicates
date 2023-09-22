@@ -3,6 +3,11 @@
 Holla!
 
 Website nowadays are getting complex and interactive for getting engangement to increase their business. That's why UI/UX are important for building websites and ReactJS as a frontend library, with the flexibility and community can handle of complex UI/UX
+
+## DISCLAIMER
+If you have a problem about GET data or POST ada after logged in, please clear the <b>LocalStorage</b>. 
+
+This bug will be fixing ASAP
 ## INGREDIENTS
 This simple CRUD category, using some tech stack like :
 
