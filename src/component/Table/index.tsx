@@ -14,14 +14,10 @@ interface CategoryWrapper {
   list: CategoryType[];
   handleDel:(c: string) => void;
   handleUpdate:(c: string) => void;
+  handleAdd:() => void;
 }
 
-const Table = ({list, handleDel, handleUpdate}: CategoryWrapper) => {
-  // console.log(list)
-
-  // const handleDelete = (id: string): void => {
-  //   console.log(id)
-  // }
+const Table = ({list, handleDel, handleUpdate, handleAdd}: CategoryWrapper) => {
 
   const columns: ColumnsType<CategoryType> = [
     {
@@ -56,8 +52,8 @@ const Table = ({list, handleDel, handleUpdate}: CategoryWrapper) => {
       render: (list) => (
         
         <Space size="middle">
-          <Button type={'primary'} htmlType={"submit"} onClick={() => handleUpdate(list.id)}   className='bg-indigo-400'>Edit</Button>
-          <Button type={'primary'} htmlType={"submit"} onClick={() => handleDel(list.id)}   className='bg-indigo-500'>Delete</Button>
+          <Button type={'primary'} htmlType={"submit"} onClick={() => handleUpdate(list.id)}   className='bg-gray-600'>Edit</Button>
+          <Button type={'primary'} htmlType={"submit"} onClick={() => handleDel(list.id)}   className='bg-gray-600'>Delete</Button>
         </Space>
       ),
     },
@@ -66,11 +62,16 @@ const Table = ({list, handleDel, handleUpdate}: CategoryWrapper) => {
   
   if(list.length > 0) {
     return (
-      <Tables columns={columns} dataSource={list} />
+      <>
+        <Button type={'primary'} htmlType={"button"} className='btn-add-cat bg-gray-500' onClick={handleAdd}>Add Data</Button>
+        <Tables columns={columns} dataSource={list} /></>
     )
   } else {
     return (
-      <Tables columns={columns} />
+      <>
+        <Button type={'primary'} htmlType={"button"} className='btn-add-cat bg-gray-500' onClick={handleAdd}>Add Data</Button>
+        <Tables columns={columns} />
+      </>
     )
   }
 

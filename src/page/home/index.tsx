@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from "axios";
 import Table from '../../component/Table'
-import { Button } from 'antd';
 import { lib } from '../../lib';
 import { useGlobalContext } from '../../context';
 import { useNavigate} from 'react-router-dom';
@@ -119,9 +118,15 @@ const Home = () => {
   
   return (
     <div className='container mx-auto'>
-      <Table list={list} handleDel={handleDel} handleUpdate={handleUpdate} />
+      <div className="min-h-screen dark:bg-slate-800">
+        <div className="flex justify-center gap-y-5">
+          <div className="flex flex-col justify-center">
+          <Table list={list} handleDel={handleDel} handleUpdate={handleUpdate} handleAdd={addData} />
+          </div>
+        </div>
+
+      </div>
       {/* <Modal open={open} handleOK={handleOK} confirmLoading={confirmLoading} handleCancel={handleCancel} category={category} name={name} setCategory={setCategory} setName={setName} /> */}
-      <Button type={'primary'} htmlType={"button"}  className='btn-register' onClick={addData}>Add Data</Button>
     </div>
   )
 }
