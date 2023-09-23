@@ -18,7 +18,6 @@ interface CategoryWrapper {
 }
 
 const Table = ({list, handleDel, handleUpdate, handleAdd}: CategoryWrapper) => {
-
   const columns: ColumnsType<CategoryType> = [
     {
       title: 'ID',
@@ -29,7 +28,7 @@ const Table = ({list, handleDel, handleUpdate, handleAdd}: CategoryWrapper) => {
       title: 'Is Active',
       dataIndex: 'is_active',
       key: 'is_active',
-      render: (list) => <a>{`${list.is_active}`}</a>
+      render: (_,v) => <a>{`${v.is_active}`}</a>
     },
     {
       title: 'Name',
