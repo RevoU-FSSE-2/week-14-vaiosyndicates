@@ -1,4 +1,4 @@
-import { Button, Space, Table as Tables } from 'antd';
+import { Button, Space, Table as Tables, Popconfirm } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 
 
@@ -16,7 +16,7 @@ interface LoadingType {
 
 interface CategoryWrapper {
   list: CategoryType[];
-  handleDel:(x: string, event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  handleDel:(x: string) => void;
   handleUpdate:(c: string) => void;
   handleAdd:() => void;
 }
@@ -63,7 +63,19 @@ const Table = ({list, handleDel, handleUpdate, handleAdd, loader}: TableType) =>
         
         <Space size="middle">
           <Button type={'primary'} htmlType={"submit"} onClick={() => handleUpdate(list.id)}   className='bg-gray-600'>Edit</Button>
-          <Button type={'primary'} htmlType={"submit"} onClick={(event) => handleDel(list.id, event)}   className={`bg-gray-600 ${list.id}`} loading={loader.loading} >Delete</Button>
+          <Popconfirm
+            title="Delete the task"
+            description="Are you sure to delete this task?"
+            onConfirm={() => handleDel(list.id)}
+            okText="Yes"
+            cancelText="No"
+            okButtonProps={{
+              type: 'default',
+              loading: loader.loading
+            }}
+          >
+            <Button className='bg-gray-600 text-slate-300' >Delete</Button>
+          </Popconfirm>
         </Space>
       ),
     },

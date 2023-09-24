@@ -34,7 +34,6 @@ const Home = () => {
   })
 
   const getList = async () => {
-    // console.log(token)
     try {
       const response = await axios.get(`${urls}/category`, { 
         headers: {
@@ -65,10 +64,7 @@ const Home = () => {
     navigate('/category/add')
   }
 
-  const handleDel = async (id: string, event: React.MouseEvent<HTMLElement, MouseEvent>) => {
-    console.log(event.currentTarget.classList[4])
-    // console.log(id)
-    // console.log(loader)
+  const handleDel = async (id: string) => {
     try {
       setLoader({loading: true})
       const response = await axios.get(`${urls}/category/${id}`, { 
