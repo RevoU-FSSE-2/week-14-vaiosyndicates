@@ -70,20 +70,12 @@ const Table = ({list, handleDel, handleUpdate, handleAdd, loader}: TableType) =>
   ];
   
   
-  if(list.length > 0) {
-    return (
-      <>
-        <Button type={'primary'} htmlType={"button"} className='btn-add-cat bg-gray-500' onClick={handleAdd}>Add Data</Button>
-        <Tables columns={columns} dataSource={list} /></>
-    )
-  } else {
-    return (
-      <>
-        <Button type={'primary'} htmlType={"button"} className='btn-add-cat bg-gray-500' onClick={handleAdd}>Add Data</Button>
-        <Tables columns={columns} />
-      </>
-    )
-  }
+  return (
+    <>
+      <Button type={'primary'} htmlType={"button"} className='btn-add-cat bg-gray-500' onClick={handleAdd}>Add Data</Button>
+      <Tables columns={columns}  dataSource={list.length > 0 ? list : []} />
+    </>
+  )
 
 }
 
