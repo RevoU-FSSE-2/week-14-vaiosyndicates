@@ -13,6 +13,10 @@ interface CategoryType {
   updated_at?: string;
 }
 
+interface LoadingCond {
+  loading?: boolean;
+}
+
 const Home = () => {
   const urls = lib.url
   const { token } = useGlobalContext()
@@ -20,6 +24,7 @@ const Home = () => {
 
   const [list, setList] = useState<CategoryType[]>([]);
   const [load, setLoad] = useState<boolean>(true)
+  const [loader, setLoader] = useState<LoadingCond>({});
 
 
   useEffect(() => {
@@ -60,8 +65,12 @@ const Home = () => {
     navigate('/category/add')
   }
 
-  const handleDel = async (id: string) => {
+  const handleDel = async (id: string, event: React.MouseEvent<HTMLElement, MouseEvent>) => {
+    console.log(event.currentTarget.classList[4])
+    // console.log(id)
+    // console.log(loader)
     try {
+      setLoader({loading: true})
       const response = await axios.get(`${urls}/category/${id}`, { 
         headers: {
           Authorization: `Bearer ${token}`,
@@ -72,7 +81,6 @@ const Home = () => {
       
       if(response.status == 201 ) {
         try {
-          
           const responseDel = await axios.delete(`${urls}/category/${id}`, { 
             headers: {
               Authorization: `Bearer ${token}`,
@@ -82,6 +90,7 @@ const Home = () => {
           });
 
           if(responseDel.status == 204) {
+            setLoader({loading: false})
             getList()
           }
 
@@ -100,10 +109,10 @@ const Home = () => {
       // console.log(response)
     } catch (error) {
       if (error instanceof Error) {
-        setLoad(false)
+        setLoader({loading: false})
         console.log(error.message);
       } else {
-        setLoad(false)
+        setLoader({loading: false})
         console.log('Unexpected error', error);
       }
     }
@@ -121,7 +130,7 @@ const Home = () => {
       <div className="min-h-screen dark:bg-slate-800">
         <div className="flex justify-center gap-y-5">
           <div className="flex flex-col justify-center">
-          <Table list={list} handleDel={handleDel} handleUpdate={handleUpdate} handleAdd={addData} />
+          <Table list={list} handleDel={handleDel} handleUpdate={handleUpdate} handleAdd={addData} loader={loader}  />
           </div>
         </div>
 

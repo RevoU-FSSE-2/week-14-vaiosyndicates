@@ -33,14 +33,14 @@ const validationSchema = yup.object({
 
 const Register = () => {
   const [messageApi, contextHolder] = message.useMessage();
+  // const [load, setLoad] = useState<boolean>(true)
   const navigate = useNavigate();
-  const { setLoading } = useGlobalContext()
+  const { loading, setLoading } = useGlobalContext()
   const urls = lib.url
 
   const handleSubmit = async (values: RegisterType) => {
     setLoading(true)
     try {
-
       const response = await axios.post(`${urls}/user/register`, values, { 
         headers: {
           'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ const Register = () => {
                         <h2 className='form-error'>{formMik.errors.password}</h2>
                     )}
                 </div>
-                <Button type={'primary'} htmlType={"submit"}  className='bg-indigo-500'>Submit</Button>
+                <Button type={'primary'} htmlType={"submit"}  className='bg-indigo-500' loading={loading}>Submit</Button>
             </form>
           </Card>
         </div>

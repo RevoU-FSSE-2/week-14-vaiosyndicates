@@ -10,14 +10,25 @@ interface CategoryType {
   updated_at?: string;
 }
 
+interface LoadingType {
+  loading?: boolean;
+}
+
 interface CategoryWrapper {
   list: CategoryType[];
-  handleDel:(c: string) => void;
+  handleDel:(x: string, event: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   handleUpdate:(c: string) => void;
   handleAdd:() => void;
 }
 
-const Table = ({list, handleDel, handleUpdate, handleAdd}: CategoryWrapper) => {
+interface TableType extends CategoryWrapper {
+  loader: LoadingType
+}
+
+
+
+
+const Table = ({list, handleDel, handleUpdate, handleAdd, loader}: TableType) => {
   const columns: ColumnsType<CategoryType> = [
     {
       title: 'ID',
@@ -52,7 +63,7 @@ const Table = ({list, handleDel, handleUpdate, handleAdd}: CategoryWrapper) => {
         
         <Space size="middle">
           <Button type={'primary'} htmlType={"submit"} onClick={() => handleUpdate(list.id)}   className='bg-gray-600'>Edit</Button>
-          <Button type={'primary'} htmlType={"submit"} onClick={() => handleDel(list.id)}   className='bg-gray-600'>Delete</Button>
+          <Button type={'primary'} htmlType={"submit"} onClick={(event) => handleDel(list.id, event)}   className={`bg-gray-600 ${list.id}`} loading={loader.loading} >Delete</Button>
         </Space>
       ),
     },

@@ -104,6 +104,7 @@ const Update = () => {
     }
 
        try {
+        setLoad(true)
         const response = await axios.put(`${urls}/category/update`, payload, { 
           headers: {
             Authorization: `Bearer ${token}`,
@@ -112,12 +113,15 @@ const Update = () => {
           },
         });
         if(response.status == 204) {
+          setLoad(false)
           navigate('/')
         }    
       } catch (err) {
         if (err instanceof Error) {
+          setLoad(false)
           console.log(err.message);
         } else {
+          setLoad(false)
           console.log('Unexpected error', err);
         }
       }
@@ -159,7 +163,7 @@ const Update = () => {
                       <h2 className='form-error'>{formMik.errors.is_active}</h2>
                   )}
               </div>
-              <Button type={'primary'} htmlType={"submit"}  className='bg-indigo-500'>Submit</Button>
+              <Button type={'primary'} htmlType={"submit"}  className='bg-indigo-500' loading={load}>Submit</Button>
           </form>
         </Card>
       </div>

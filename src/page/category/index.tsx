@@ -27,13 +27,12 @@ const validationSchema = yup.object({
 
 
 const Category = () => {
-  const { token } = useGlobalContext()
+  const {loading, token, setLoading } = useGlobalContext()
   const navigate = useNavigate();
 
   const handleSubmit = async (values: Category) => {
     const urls = lib.url
-    // console.log(values)
-  
+    setLoading(true)  
     try {
       const response = await axios.post(`${urls}/category/create`, values, { 
         headers: {
@@ -45,6 +44,7 @@ const Category = () => {
   
       // console.log(response)
       if(response.status == 201) {
+        setLoading(false)
         navigate('/')
       }
     } catch (err) {
@@ -90,7 +90,7 @@ const Category = () => {
                       <h2 className='form-error'>{formMik.errors.status}</h2>
                   )}
               </div>
-              <Button type={'primary'} htmlType={"submit"}  className='bg-indigo-500'>Submit</Button>
+              <Button type={'primary'} htmlType={"submit"}  className='bg-indigo-500' loading={loading}>Submit</Button>
           </form>
         </Card>
       </div>
