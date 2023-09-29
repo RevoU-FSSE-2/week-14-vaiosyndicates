@@ -2,16 +2,20 @@ import { useFormik } from 'formik';
 import * as yup from 'yup'
 import Card from '../../component/Card';
 import { Button, Input } from 'antd';
-import axios from 'axios';
-import { lib } from '../../lib';
+// import axios from 'axios';
+// import { lib } from '../../lib';
 import { useGlobalContext } from '../../context';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 
 
 interface Category {
   name?: string;
   status?: string;
+}
+
+interface CategoryAct {
+  onSubmit:(values: Category) => void;
 }
 
 const initialValues = {
@@ -26,34 +30,36 @@ const validationSchema = yup.object({
 
 
 
-const Category = () => {
-  const {loading, token, setLoading } = useGlobalContext()
-  const navigate = useNavigate();
+const Category = ({onSubmit}:CategoryAct) => {
+  const {loading } = useGlobalContext()
+  //token, setLoading
+  // const navigate = useNavigate();
 
   const handleSubmit = async (values: Category) => {
-    const urls = lib.url
-    setLoading(true)  
-    try {
-      const response = await axios.post(`${urls}/category/create`, values, { 
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-      });
+    onSubmit(values)
+    // const urls = lib.url
+    // setLoading(true)  
+    // try {
+    //   const response = await axios.post(`${urls}/category/create`, values, { 
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //       'Content-Type': 'application/json',
+    //       Accept: 'application/json',
+    //     },
+    //   });
   
-      // console.log(response)
-      if(response.status == 201) {
-        setLoading(false)
-        navigate('/')
-      }
-    } catch (err) {
-      if (err instanceof Error) {
-        console.log(err.message);
-      } else {
-        console.log('Unexpected error', err);
-      }
-    }
+    //   // console.log(response)
+    //   if(response.status == 201) {
+    //     setLoading(false)
+    //     navigate('/')
+    //   }
+    // } catch (err) {
+    //   if (err instanceof Error) {
+    //     console.log(err.message);
+    //   } else {
+    //     console.log('Unexpected error', err);
+    //   }
+    // }
   }
 
   const formMik = useFormik({
@@ -73,6 +79,7 @@ const Category = () => {
                       value={formMik.values.name} 
                       onChange={formMik.handleChange('name')}
                       status={formMik.errors.name && 'error'}
+                      placeholder='Enter Category'
                   />
                   {formMik.errors.name && (
                       <h2 className='form-error'>{formMik.errors.name}</h2>
@@ -85,6 +92,7 @@ const Category = () => {
                       value={formMik.values.status}
                       onChange={formMik.handleChange('status')}
                       status={formMik.errors.status && 'error'}
+                      placeholder='Enter Status'
                   />
                   {formMik.errors.status && (
                       <h2 className='form-error'>{formMik.errors.status}</h2>

@@ -4,6 +4,7 @@ import Table from '../../component/Table'
 import { lib } from '../../lib';
 import { useGlobalContext } from '../../context';
 import { useNavigate} from 'react-router-dom';
+import Navbar from '../../component/Navbar';
 
 interface CategoryType {
   id?: string;
@@ -124,14 +125,15 @@ const Home = () => {
   return (
     <div className='container mx-auto'>
       <div className="min-h-screen dark:bg-slate-800">
-        <div className="flex justify-center gap-y-5">
+        <div className="flex">
+          <Navbar urlMenu={'/'} urlProfile={'/profile'} />
+        </div>
+        <div className="flex justify-center gap-y-5 mt-6">
           <div className="flex flex-col justify-center">
-          <Table list={list} handleDel={handleDel} handleUpdate={handleUpdate} handleAdd={addData} loader={loader}  />
+            <Table list={list} handleDel={handleDel} handleUpdate={handleUpdate} handleAdd={addData} loader={loader}  />
           </div>
         </div>
-
       </div>
-      {/* <Modal open={open} handleOK={handleOK} confirmLoading={confirmLoading} handleCancel={handleCancel} category={category} name={name} setCategory={setCategory} setName={setName} /> */}
     </div>
   )
 }

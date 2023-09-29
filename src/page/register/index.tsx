@@ -10,6 +10,7 @@ import Card from '../../component/Card';
 import { useGlobalContext } from '../../context';
 import axios from "axios";
 import { lib } from '../../lib';
+import { useState } from 'react';
 
 interface RegisterType {
   name: string;
@@ -23,6 +24,10 @@ const initialValues = {
   email: '',
 }
 
+interface RegisterAct {
+  onSubmit: (values: RegisterType) => void
+}
+
 const validationSchema = yup.object({
   name: yup.string().required('This field required'),
   email: yup.string().required('This field required').email('Invalid format email'),
@@ -31,7 +36,7 @@ const validationSchema = yup.object({
                      .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
 })
 
-const Register = () => {
+const Register = ({onSubmit}: RegisterAct) => {
   const [messageApi, contextHolder] = message.useMessage();
   // const [load, setLoad] = useState<boolean>(true)
   const navigate = useNavigate();
@@ -39,6 +44,7 @@ const Register = () => {
   const urls = lib.url
 
   const handleSubmit = async (values: RegisterType) => {
+    onSubmit(values)
     setLoading(true)
     try {
       const response = await axios.post(`${urls}/user/register`, values, { 
@@ -95,11 +101,12 @@ const Register = () => {
           <Card title={`REGISTER`}>
             <form onSubmit={formMik.handleSubmit}>
                 <div>
-                    <h4 className='form-title'>name</h4>
+                    <h4 className='form-title'>Name</h4>
                     <Input name={'name'}
                         value={formMik.values.name} 
                         onChange={formMik.handleChange('name')}
                         status={formMik.errors.name && 'error'}
+                        placeholder='Enter Name'
                     />
                     {formMik.errors.name && (
                         <h2 className='form-error'>{formMik.errors.name}</h2>
@@ -112,6 +119,7 @@ const Register = () => {
                         value={formMik.values.email}
                         onChange={formMik.handleChange('email')}
                         status={formMik.errors.email && 'error'}
+                        placeholder='Enter Email'
                     />
                     {formMik.errors.email && (
                         <h2 className='form-error'>{formMik.errors.email}</h2>
@@ -124,6 +132,7 @@ const Register = () => {
                         value={formMik.values.password}
                         onChange={formMik.handleChange('password')}
                         status={formMik.errors.password && 'error'}
+                        placeholder='Enter Password'
                     />
                     {formMik.errors.password && (
                         <h2 className='form-error'>{formMik.errors.password}</h2>

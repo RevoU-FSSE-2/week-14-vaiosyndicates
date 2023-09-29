@@ -9,8 +9,12 @@ import { lib } from '../../lib';
 
 
 interface LoginType {
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
+}
+
+interface LoginAct {
+  onSubmit:(values: LoginType) => void;
 }
 
 const initialValues = {
@@ -25,13 +29,17 @@ const validationSchema = yup.object({
                      .matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
 })
 
-const Login = () => {
+const Login = ({onSubmit}: LoginAct) => {
   const urls = lib.url
   const navigate = useNavigate();
   const { setLoading, setToken } = useGlobalContext()
 
+
   const handleSubmit = async (values: LoginType) => {
-    // console.log(values)
+    
+    onSubmit(values)
+
+    
     try {
       const response = await axios.post(`${urls}/user/login`, values, { 
         headers: {
@@ -57,6 +65,7 @@ const Login = () => {
     }
   }
 
+
   const formMik = useFormik({
     initialValues: initialValues,
     onSubmit: handleSubmit,
@@ -79,6 +88,7 @@ const Login = () => {
                       value={formMik.values.email} 
                       onChange={formMik.handleChange('email')}
                       status={formMik.errors.email && 'error'}
+                      placeholder='Enter Email'
                   />
                   {formMik.errors.email && (
                       <h2 className='form-error'>{formMik.errors.email}</h2>
@@ -91,6 +101,7 @@ const Login = () => {
                       value={formMik.values.password}
                       onChange={formMik.handleChange('password')}
                       status={formMik.errors.password && 'error'}
+                      placeholder='Enter Password'
                   />
                   {formMik.errors.password && (
                       <h2 className='form-error'>{formMik.errors.password}</h2>
